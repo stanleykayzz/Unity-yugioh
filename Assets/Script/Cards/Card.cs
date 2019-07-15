@@ -10,6 +10,7 @@ public class Card : MonoBehaviour{
     public bool front;
     public bool back;
     public GameObject card;
+    public bool faceUp = false;
 
     public Card()
     {
