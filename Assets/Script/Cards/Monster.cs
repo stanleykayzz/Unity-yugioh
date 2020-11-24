@@ -18,9 +18,9 @@ public class Monster : Card {
     {
 
     }
-
+    
     public Monster(int countStars, double atk, double def, MonsterType mType, MonsterAttribute mAttribute,
-        string name,string des,bool front,bool back,Image art) :base(name,des,front,back,art)
+        string name, string des, bool front, bool back, Image art) : base(name, des, front, back, art)
     {
         this.stars = countStars;
         this.attackPoints = atk;
