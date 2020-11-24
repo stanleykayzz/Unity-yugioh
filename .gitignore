@@ -1,0 +1,12 @@
+*.csproj
+*.htm
+*.sln
+.vs
+.vscode
+Library/*
+Temp/*
+.assets
+Assets
+*.json
+ProjectSettings
+obj
