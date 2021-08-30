@@ -30,4 +30,17 @@ public class Monster : Card {
     }
 
 
+    public NormalMonster GetNormalMonster()
+    {
+        var m = new NormalMonster();
+        Debug.Log("getNORMAL MONSTER ==> " + this.stars);
+        m.lv = this.stars;
+        m.name = this.name;
+        m.atk = (int)this.attackPoints;
+        m.def = (int)this.defensePoints;
+        m.monsterAttribute = this.attribute;
+        m.monsterType = this.type;
+        return m;
+    }
+
 }

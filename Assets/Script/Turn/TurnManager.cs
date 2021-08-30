@@ -23,13 +23,23 @@ public bool EndPhase;
 		Debug.Log("not in trun for now ...");
 	}
 
-	public void goToDrawPhase()
-	{
+    public void resetAllPhases()
+    {
+        this.DrawPhase = false;
+        this.StandByPhase = false;
+        this.MainPhase1 = false;
+        this.BattlePhase = false;
+        this.MainPhase2 = false;
+        this.EndPhase = false;
+        Debug.Log("All turn phases has been reset to false");
+    }
+    public void goToDrawPhase()
+    {
         this.DrawPhase = true;
         Debug.Log("DP");
     }
 
-    public void  goStandByPhase()
+    public void  goToStandByPhase()
     {
         this.DrawPhase = false;
         this.StandByPhase = true;
