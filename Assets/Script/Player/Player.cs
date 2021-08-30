@@ -10,7 +10,8 @@ public class Player /*: MonoBehaviour*/ {
     public string email;
     public string password;
     public string pseudo;
-    public List<Card> deck;
+    public string name;
+    public List<Card> deck { get; set; }
 
     public int lifePoints;
     public List<Card> sideDeck;
@@ -20,6 +21,10 @@ public class Player /*: MonoBehaviour*/ {
     public TurnManager playerTurn;
     public bool canAttack;
     public bool canNormalSummon;
+    public bool canSetMonster = true;
+    public bool canFlipSummon = true;
+//    public bool canSet = true;
+//    public bool canNormalSummon;
     public List<Card> extraDeck;
     public bool turnToPlay = false;
     
@@ -54,7 +59,8 @@ public class Player /*: MonoBehaviour*/ {
         //this.Trunk: Card;
         this.hand = hand;
         this.playerTurn = myTurn;
-        //this.canNormalSummon: boolean;
+        this.canNormalSummon = IcanSummon;
+        this.canAttack = false;
         //this.extraDeck: Card;
     }
 
@@ -145,14 +151,34 @@ public class Player /*: MonoBehaviour*/ {
     //     else if (playerSide.monsterZone5IsEmpty)
     //         playerSide.monsterZone5.monsterPosition.push(myCard)
     // }
-    
+
     // setCardInTMZone() :  void {
     //     // TODO implement here
     // }
 
-    public void shuffleDeck(){        
+    public void shuffleDeck()
+    {
         Debug.Log("Moi, le joueur " + this.pseudo + " Je bat mes cartes pour bien les mélanger ");
+        /*this.deck =*/ this.deck.OrderBy(x => Random.value).ToList();
     }
+    /*public List<Card> ShuffleDeck()
+    {
+        Debug.Log("Moi, le joueur " + this.pseudo + " Je bat mes cartes pour bien les mélanger ");
+        return this.deck.OrderBy(x => Random.value).ToList();
+    }*/
+
+    /*public void Shuffle<Card>(this IList<Card> ts)
+    {
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
+        }
+    }*/
 
     public void beginingDuelDraw(){
         Debug.Log("C'est le début du duel donc " + this.pseudo + " pioche 5 cartes");
@@ -183,21 +209,28 @@ public class Player /*: MonoBehaviour*/ {
         Debug.Log(this.pseudo + " drawed a card and has "+ this.hand.Count+" cards in his hand,  "+this.deck.Count+" in his deck");
     }
     
+    public void resetDuelTurn()
+    {
+        this.playerTurn.resetAllPhases();
+    }
     public void goToDrawPhase(){
-        this.playerTurn.StandByPhase = false;
+        this.playerTurn.EndPhase = false;
         this.playerTurn.DrawPhase = true;
         Debug.Log("DP");
         this.drawCard();
     }
     public void goToStandByPhase(){
-        this.playerTurn.EndPhase = false;
+        this.playerTurn.DrawPhase = false;
         this.playerTurn.StandByPhase = true;
         Debug.Log("SP");
     }
     public void goToMainPhase1(){
         this.playerTurn.StandByPhase = false;
         this.playerTurn.MainPhase1 = true;
+        this.canNormalSummon = true;
+        this.canAttack = true;
         Debug.Log("MP1");
+        Debug.Log("player " + this.pseudo + " canSumon ? : " + this.canNormalSummon);
     }
     public void goToBattlePhase(){
         this.playerTurn.MainPhase1 = false;
@@ -218,7 +251,6 @@ public class Player /*: MonoBehaviour*/ {
         Debug.Log("EP");
 
         // this.duelManager();
-
     }
 
 

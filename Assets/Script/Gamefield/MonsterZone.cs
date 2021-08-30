@@ -10,5 +10,9 @@ public class MonsterZone : CardZone {
         this.monsterPosition = new List<Card>();
     }
 
+    public Monster getMonster()
+    {
+        return (Monster) this.monsterPosition[0];
+    }
 	
 }
